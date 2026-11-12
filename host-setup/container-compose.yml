@@ -1,0 +1,19 @@
+name: pdu-tracker
+
+services:
+  pdu-tracker:
+    image: ghcr.io/epicblockchain/pdu-tracker:latest
+    container_name: pdu-tracker
+    restart: unless-stopped
+    labels:
+      io.containers.autoupdate: registry
+    volumes:
+      - pdu-data:/app/data
+      - ${PDU_TRACKER_CONFIG_DIR}:/app/config:z
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      PDU_TRACKER_CONFIG_FILE: /app/config/config.toml
+
+volumes:
+  pdu-data:
+    name: pdu-data
